@@ -43,38 +43,40 @@ var Boggle = {
     $('h2').hide();
 		var shuffled = _.shuffle(Boggle.squares);
 		Boggle.renderBoard(shuffled);
+
 		//timer
     var startedAt = new Date().getTime() + 181000;
-      var gameTimer = setInterval(function(){ 
-        var timer = new Date().getTime();
+      
+    var gameTimer = setInterval(function(){ 
+      var timer = new Date().getTime();
 
-        //minutes
-        var min = ((startedAt - timer) / 1000)/60;
-        var min = min.toString();
-		    min = min.slice(0, (min.indexOf(".")));
-		    Number(min); 
+      //minutes
+      var min = ((startedAt - timer) / 1000)/60;
+      var min = min.toString();
+	    min = min.slice(0, (min.indexOf(".")));
+	    Number(min); 
 
-        //seconds
-        var sec = ((startedAt - timer) / 1000);
-        var sec = Math.floor(sec % 60);
+      //seconds
+      var sec = ((startedAt - timer) / 1000);
+      var sec = Math.floor(sec % 60);
 
-        if (sec < 10) {
-          Boggle.$timer.html(min + " minutes 0" + sec + " seconds");
-        } else {
-          Boggle.$timer.html(min + " minutes " + sec + " seconds");
-        }
+      if (sec < 10) {
+        Boggle.$timer.html(min + " minutes 0" + sec + " seconds");
+      } else {
+        Boggle.$timer.html(min + " minutes " + sec + " seconds");
+      }
 
-        if (min == 0 && sec == 1) {
-          Boggle.$boggleSquares.hide();
-          Boggle.$timer.hide();
-          $('h2').show();
-          clearInterval(gameTimer);
-          $('button').unbind('click');
-          Boggle.init();
+      //game over
+      if (min == 0 && sec == 1) {
+        Boggle.$boggleSquares.hide();
+        Boggle.$timer.hide();
+        $('h2').show();
+        clearInterval(gameTimer);
+        $('button').unbind('click');
+        Boggle.init();
+      }
 
-        }
-
-        }, 500);
+      }, 500);
 	},
 
 	renderBoard: function(squares) {
@@ -88,11 +90,8 @@ var Boggle = {
 	randomNumber: function() {
 		return _.random(0, 5);
 	}
-
 }
 
 Boggle.init();
 
-//Math.floor(90/60) >> 1
-//Math/floor(90%60) >> 30
-// if min < 10 concat string 0 in front of it
+
