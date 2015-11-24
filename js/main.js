@@ -32,51 +32,49 @@ var Boggle = {
 	],
 
 	init: function() {
-		$('button').on('click', Boggle.start);
+    $('button').on('click', _.bind(this.start, this));
 	},
 
 	start: function() {
-		Boggle.started = true;
-    Boggle.$boggleSquares.show();
-    Boggle.$timer.show();
-    Boggle.$timer.html("3 minutes 00 seconds");
+    var shuffled = _.shuffle(Boggle.squares);
+    var startedAt = new Date().getTime() + 181000;
+
+		this.started = true;
+    this.$boggleSquares.show();
+    this.$timer.show();
+    this.$timer.html("3 minutes 00 seconds");
     $('h2').hide();
-		var shuffled = _.shuffle(Boggle.squares);
-		Boggle.renderBoard(shuffled);
+		this.renderBoard(shuffled);
 
 		//timer
-    var startedAt = new Date().getTime() + 181000;
       
-    var gameTimer = setInterval(function(){ 
+    var gameTimer = setInterval(_.bind(function(){ 
       var timer = new Date().getTime();
 
       //minutes
-      var min = ((startedAt - timer) / 1000)/60;
-      var min = min.toString();
-	    min = min.slice(0, (min.indexOf(".")));
-	    Number(min); 
+      var min = ((startedAt - timer) / 1000) / 60;
+      min = Math.floor(min); 
 
       //seconds
       var sec = ((startedAt - timer) / 1000);
-      var sec = Math.floor(sec % 60);
+      sec = Math.floor(sec % 60);
 
-      if (sec < 10) {
-        Boggle.$timer.html(min + " minutes 0" + sec + " seconds");
-      } else {
-        Boggle.$timer.html(min + " minutes " + sec + " seconds");
-      }
+      var message = (sec < 10) ? (min + " minutes 0" + sec + " seconds") :
+                                 (min + " minutes " + sec + " seconds");
+
+      this.$timer.html(message);
 
       //game over
-      if (min == 0 && sec == 1) {
-        Boggle.$boggleSquares.hide();
-        Boggle.$timer.hide();
+      if (min === 0 && sec === 0) {
+        this.$boggleSquares.hide();
+        this.$timer.hide();
         $('h2').show();
         clearInterval(gameTimer);
         $('button').unbind('click');
-        Boggle.init();
+        this.init();
       }
 
-      }, 500);
+      }, this), 500);
 	},
 
 	renderBoard: function(squares) {
@@ -93,5 +91,19 @@ var Boggle = {
 }
 
 Boggle.init();
+
+
+
+
+
+
+
+
+//--------------------------------
+//      PERSONAL NOTES
+//--------------------------------
+
+// use _.bind on Boggle.start so can reference this` inside the start function
+    //$('button').on('click', Boggle.start);
 
 
