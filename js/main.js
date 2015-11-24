@@ -36,11 +36,14 @@ var Boggle = {
 
 	start: function() {
 		Boggle.started = true;
+    Boggle.$boggleSquares.show();
+    $('#time').show();
+    $('h2').hide();
 		var shuffled = _.shuffle(Boggle.squares);
 		Boggle.renderBoard(shuffled);
 		//timer
     var startedAt = new Date().getTime();
-      setInterval(function(){ 
+      var poop = setInterval(function(){ 
         var timer = new Date().getTime();
 
         //minutes
@@ -58,7 +61,15 @@ var Boggle = {
         } else {
           $('#time').html(min + " minutes " + sec + " seconds");
         }
-        
+
+        if (min == 3) {
+          Boggle.$boggleSquares.hide();
+          $('#time').hide();
+          $('h2').show();
+          clearInterval(poop);
+
+        }
+
         }, 500);
 	},
 

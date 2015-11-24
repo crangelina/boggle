@@ -32,3 +32,10 @@ h1 {
 	font-size: 30px;
 }
 
+h2 {
+	margin-top: 125px;
+	color: #eeeee6;
+	font-size: 100px;
+	display: none;
+}
+
