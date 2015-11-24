@@ -1,0 +1,34 @@
+body {
+	font-family: 'Gudea', sans-serif;
+	background-color: #142857;
+
+}
+
+h1 {
+	font-weight: 700;
+	font-size  : 50px; 
+	text-align : center;
+	color      : #eeeee6;
+}
+
+.row {
+	margin-top: 15px;
+	text-align: center;
+}
+
+
+.boggle-square {
+	background-color: #e5e5da;
+	font-size    : 25px;
+	max-height   : 100px;
+	max-width    : 100px;
+	line-height  : 50px;
+	border-radius: 15px;
+	padding: 0;
+}
+
+#time {
+	color: #fff;
+	font-size: 30px;
+}
+
