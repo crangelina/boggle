@@ -6,9 +6,10 @@ body {
 
 h1 {
 	font-weight: 700;
-	font-size  : 50px; 
+	font-size  : 53px; 
 	text-align : center;
-	color      : #eeeee6;
+	color      : #fbfbf8;
+	text-shadow: 0 2px 0 #d0d0c6;
 }
 
 .row {
@@ -18,13 +19,20 @@ h1 {
 
 
 .boggle-square {
-	background-color: #e5e5da;
+	background-color: #fbfbf8;
+	border-bottom: 1px solid #d0d0c6;
 	font-size    : 25px;
 	max-height   : 100px;
 	max-width    : 100px;
 	line-height  : 50px;
 	border-radius: 15px;
 	padding: 0;
+}
+
+.btn {
+	background-color: #fbfbf8;
+	color: #272525;
+	border-bottom: 2px solid #e1e1d7;
 }
 
 #time {

@@ -2,6 +2,7 @@
 var Boggle = {
 	started: false,
 	$boggleSquares: $('.boggle-square'),
+  $timer: $('#time'),
 	squares : [
 		['R', 'R', 'G', 'V', 'W', 'O'],
 		['W', 'U', 'N', 'T', 'O', 'O'],
@@ -37,36 +38,39 @@ var Boggle = {
 	start: function() {
 		Boggle.started = true;
     Boggle.$boggleSquares.show();
-    $('#time').show();
+    Boggle.$timer.show();
+    Boggle.$timer.html("3 minutes 00 seconds");
     $('h2').hide();
 		var shuffled = _.shuffle(Boggle.squares);
 		Boggle.renderBoard(shuffled);
 		//timer
-    var startedAt = new Date().getTime();
-      var poop = setInterval(function(){ 
+    var startedAt = new Date().getTime() + 181000;
+      var gameTimer = setInterval(function(){ 
         var timer = new Date().getTime();
 
         //minutes
-        var min = ((timer-startedAt) / 1000)/60;
+        var min = ((startedAt - timer) / 1000)/60;
         var min = min.toString();
 		    min = min.slice(0, (min.indexOf(".")));
 		    Number(min); 
 
         //seconds
-        var sec = ((timer-startedAt) / 1000);
+        var sec = ((startedAt - timer) / 1000);
         var sec = Math.floor(sec % 60);
 
         if (sec < 10) {
-          $('#time').html(min + " minutes 0" + sec + " seconds");
+          Boggle.$timer.html(min + " minutes 0" + sec + " seconds");
         } else {
-          $('#time').html(min + " minutes " + sec + " seconds");
+          Boggle.$timer.html(min + " minutes " + sec + " seconds");
         }
 
-        if (min == 3) {
+        if (min == 0 && sec == 1) {
           Boggle.$boggleSquares.hide();
-          $('#time').hide();
+          Boggle.$timer.hide();
           $('h2').show();
-          clearInterval(poop);
+          clearInterval(gameTimer);
+          $('button').unbind('click');
+          Boggle.init();
 
         }
 
